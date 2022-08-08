@@ -1,14 +1,21 @@
 import  {Request, Response } from 'express';
+import { checkEmail } from '../emailBaner';
 const {models} = require("../../sequelize")
 import {checkId} from "../idChecker"
+
 
 async function create(req:Request, res:Response) {
     if(req.body.id){
         res.status(400).send(`Bad request: ID should not be provided, since it is determined automatically by the database.`)
     }else{
-        console.log(req.body)
         const request = await models.request.create(req.body)
-        res.status(201).json(request.dataValues)
+        checkEmail(
+            req,
+            res,
+            models.email_ban,
+            models.request,
+            request
+            )
     }
 }
 
@@ -17,7 +24,6 @@ async function getAll(req:Request, res:Response) {
 	const request = await models.request.findAll();
     res.send(request)
 };
-
 
 
 async function getById(req, res) {

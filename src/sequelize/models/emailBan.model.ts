@@ -10,11 +10,11 @@ module.exports = (sequelize:Sequelize)=>{
         email:{
             type:DataTypes.STRING,
             allowNull:false
-        
         },
-        send_time:{
+        unban_time:{
             type:DataTypes.DATE,
             allowNull:false
+
         }
     })
 }
