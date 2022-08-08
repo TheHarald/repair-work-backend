@@ -1,7 +1,9 @@
 import { Sequelize } from "sequelize";
 
-function makeRealtionships(sequelize:Sequelize){
+export function makeRealtionships(sequelize:Sequelize){
 
-    console.log(sequelize.models)
+    const { worker, request, email_ban} = sequelize.models
+    request.hasOne(worker)
+    request.hasOne(email_ban)
 
 }

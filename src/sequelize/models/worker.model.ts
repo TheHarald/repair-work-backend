@@ -2,7 +2,6 @@ import { DataTypes, Sequelize } from 'sequelize';
 
 
 module.exports = (sequelize:Sequelize)=>{
-    console.log("worker define")
     sequelize.define("worker",{
         id:{
             type:DataTypes.INTEGER,

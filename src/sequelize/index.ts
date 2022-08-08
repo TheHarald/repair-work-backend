@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 import { DatabaseConfig } from '../sequelize/db.config';
+import { makeRealtionships } from './relationships/relationships';
 
 
 const sequelize = new Sequelize(
@@ -13,17 +14,17 @@ const sequelize = new Sequelize(
 
 const modelDefiners  = [
     require("./models/worker.model"),
+    require("./models/request.model"),
+    require("./models/emailBan.model"),
     ]
 
 //define tabels
 for (const modelDefiner of modelDefiners) {
     modelDefiner(sequelize);
-    console.log('define')
 }
 
 // define relationships
-
-// here
+makeRealtionships(sequelize)
 
 
 module.exports = sequelize;

@@ -39,10 +39,6 @@ module.exports = (sequelize:Sequelize)=>{
         end_time_to_arrive:{
             type:DataTypes.STRING,
         
-        },
-        id_worker:{
-            type:DataTypes.INTEGER,
-            allowNull:true
         }
     })
 }

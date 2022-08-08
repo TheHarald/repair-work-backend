@@ -7,7 +7,7 @@ const PORT:number = 3001;
 async function assertDatabaseConnectionOk() {
 	console.log(`Checking database connection...`);
 	try {
-		await sequelize.sync({});
+		await sequelize.sync({force:false});
 		console.log('Database connection OK!');
 	} catch (error) {
 		console.log('Unable to connect to the database:');
