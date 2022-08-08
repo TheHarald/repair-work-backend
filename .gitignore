@@ -1,3 +1,3 @@
 dist
 node_modules
-src/db/db.config.ts
+/src/sequelize/db.config.ts
