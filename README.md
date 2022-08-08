@@ -6,6 +6,10 @@
 npm install
 ```
 
+```
+npm run dev
+```
+
 ##### Создайте файл
 
 ```
@@ -26,8 +30,4 @@ export const DatabaseConfig: IDatabaseConfig = {
   password: "username",
   database: "database",
 };
-```
-
-```
-npm run dev
 ```
