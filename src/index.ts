@@ -1,25 +1,32 @@
-import { initDataBase } from './db/db';
-import express, { Express, Request, Response, text } from 'express';
-
-const app:Express = express()
+const application = require("./express/app");
+const sequelize = require("./sequelize");
 const PORT:number = 3001;
 
-app.get("/api", (req:Request, res:Response)=>{
-    res.send("api main page")
-})
 
 
-app.get("/api/tasks", (req:Request, res:Response)=>{
-    res.send(
-        {id:"123",
-        title:"spme task"}
-    )
-})
+async function assertDatabaseConnectionOk() {
+	console.log(`Checking database connection...`);
+	try {
+		await sequelize.sync({});
+		console.log('Database connection OK!');
+	} catch (error) {
+		console.log('Unable to connect to the database:');
+		console.log(error.message);
+	}
+}
 
 
-app.listen(PORT,()=>{
-    initDataBase()
-    console.log(`⚡️[server]: Server is running at http://localhost:${PORT}/api/`)
-})
+async function init() {
+	await assertDatabaseConnectionOk();
+
+	console.log(`Starting Sequelize + Express example on port ${PORT}...`);
+
+	application.listen(PORT, () => {
+		console.log(`Express server started on port ${PORT}. Try some routes, such as '/api/workers'.`);
+	});
+}
+
+init()
+
 
 
