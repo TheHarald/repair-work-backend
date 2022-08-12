@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const routes = {
     workers: require("./routes/workers"),
@@ -12,6 +13,11 @@ const app:Express = express()
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({
+    origin:"*"
+}))
+
+
 
 
 //workers
