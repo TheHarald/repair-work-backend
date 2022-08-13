@@ -1,4 +1,5 @@
 import  {Request, Response } from 'express';
+import { where } from 'sequelize/types';
 import { checkEmail } from '../emailBaner';
 const {models} = require("../../sequelize")
 import {checkId} from "../idChecker"
@@ -8,14 +9,19 @@ async function create(req:Request, res:Response) {
     if(req.body.id){
         res.status(400).send(`Bad request: ID should not be provided, since it is determined automatically by the database.`)
     }else{
-        const request = await models.request.create(req.body)
-        checkEmail(
-            req,
-            res,
-            models.email_ban,
-            models.request,
-            request
-            )
+
+        if(await checkEmail(req,models.email_ban) ){
+
+            const request = await models.request.create(req.body)
+            const emailBan  = await models.email_ban.update(
+                {requestId:request.dataValues.id}, 
+                {where:{email:request.dataValues.email}})
+                
+            res.status(400).send(request)
+        }else{
+            res.status(405).send("Email находится в бане")  
+        }
+        
     }
 }
 

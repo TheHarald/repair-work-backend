@@ -1,14 +1,10 @@
-export async function checkEmail(req,res,email_ban,request,requestData){
+export async function checkEmail(req,email_ban){
 
     const setUnbanTime = ()=>{
         let new_unban_time = new Date()
-        new_unban_time.setSeconds(new_unban_time.getSeconds() + 15) //refactor to minutes
+        new_unban_time.setSeconds(new_unban_time.getSeconds() + 30) //refactor to minutes
         return new_unban_time.toISOString()
     }
-
-    let unbanTime = new Date();
-    unbanTime.setSeconds(unbanTime.getSeconds() + 15) //refactor to minutes
-    unbanTime.toISOString()
 
     const bannedEmail =  await email_ban.findOne({where:{
         email:req.body.email
@@ -18,17 +14,19 @@ export async function checkEmail(req,res,email_ban,request,requestData){
     if(bannedEmail){
         // console.log( new Date(bannedEmail.unban_time).getTime() > new Date().getTime() )
         // console.log( new Date(bannedEmail.unban_time).getTime() , new Date().getTime() )
-        if(new Date(bannedEmail.unban_time).getTime() > new Date().getTime() ){
-            res.status(405).send("Email находится в бане")    
+        if(new Date(bannedEmail.unban_time).getTime() > new Date().getTime()){
+            console.log('ban');
+             return false
         }else{
             await email_ban.update({unban_time:setUnbanTime()},{where:{id:bannedEmail.id}})
-            res.status(201).json(requestData.dataValues)}
+            console.log('allow');
+            return true
+        }
     }else{
         const emailBan = await email_ban.create({
             email:req.body.email,
-            requestId:requestData.dataValues.id,
-            unban_time:unbanTime
+            unban_time:setUnbanTime()
         })
-        res.status(201).json(requestData.dataValues)
+        return true
     }
 }

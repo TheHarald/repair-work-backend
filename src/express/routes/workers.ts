@@ -37,14 +37,14 @@ async function loginWorker(req:Request,res:Response) {
     if(worker){
        const isMatchedPassword = bcrypt.compareSync(password,worker.password)
        if(!isMatchedPassword){
-            return res.status(400).send(`Введён неправильный пароль`)
+            return res.status(400).send({message:`Введён неправильный пароль`})
        }
 
         const token = generateJwtToken({...worker.dataValues})
-        return res.status(400).send(token)
+        return res.status(200).send(token)
 
     }else{
-        return res.status(400).send(`Работник с логином: ${login} не найден`)
+        return res.status(400).send({message:`Работник с логином: ${login} не найден`})
     }
 
 }
