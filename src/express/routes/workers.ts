@@ -3,10 +3,12 @@ const {models} = require("../../sequelize")
 import {checkId} from "../idChecker"
 import { generateJwtToken } from '../tokenGenerator';
 const bcrypt = require('bcrypt')
+import { jwtConfig } from "../jwt.config";
+const jwt = require('jsonwebtoken')
 
 
 
-async function registerWorker(req:Request,res:Response) {
+async function register(req:Request,res:Response) {
 
     const {password, login, worker_FIO} = req.body;
     const worker = await models.worker.findOne({where:{
@@ -28,7 +30,7 @@ async function registerWorker(req:Request,res:Response) {
 }
 
 
-async function loginWorker(req:Request,res:Response) {
+async function login(req:Request,res:Response) {
     const {password, login} = req.body;
     const worker = await models.worker.findOne({where:{
         login:login
@@ -50,8 +52,22 @@ async function loginWorker(req:Request,res:Response) {
 }
 
 
+async function getByToken(req,res) {
+    const token = req.headers.authorization.split(' ')[1]
+    const decodedData = jwt.verify(token,jwtConfig.secret)
+    console.log(decodedData);
 
+    res.status(201).send({
+        id:decodedData.id,
+        worker_FIO:decodedData.worker_FIO,
+        login:decodedData.login,
+        createdAt:decodedData.createdAt,
+        requestId:decodedData.requestId,
+        updatedAt:decodedData.updatedAt
 
+    })
+
+}
 
 
 async function create(req, res) {
@@ -119,6 +135,7 @@ module.exports = {
     getById,
     removeById,
     update,
-    registerWorker,
-    loginWorker
+    register,
+    login,
+    getByToken
 }

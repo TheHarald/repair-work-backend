@@ -20,12 +20,13 @@ app.use(cors({
 
 
 //auth
-app.post("/api/workers/registration",  routes.workers.registerWorker)
-app.post("/api/workers/login",  routes.workers.loginWorker)
+app.post("/api/workers/registration",  routes.workers.register)
+app.post("/api/workers/login",  routes.workers.login)
 
 
 //workers
 app.get("/api/workers",  routes.workers.getAll)
+app.get("/api/worker/info", checkAuth,  routes.workers.getByToken)
 app.post("/api/workers", routes.workers.create)
 app.delete("/api/workers/:id", routes.workers.removeById)
 app.get("/api/workers/:id", routes.workers.getById)
