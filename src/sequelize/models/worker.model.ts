@@ -19,7 +19,8 @@ module.exports = (sequelize:Sequelize)=>{
         },
         login:{
             type:DataTypes.STRING,
-            allowNull:false
+            allowNull:false,
+            unique:true
         }
     })
 

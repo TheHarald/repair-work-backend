@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import { checkAuth } from './middleware/authMiddleware';
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -18,6 +19,9 @@ app.use(cors({
 }))
 
 
+//auth
+app.post("/api/workers/registration",  routes.workers.registerWorker)
+app.post("/api/workers/login",  routes.workers.loginWorker)
 
 
 //workers
@@ -29,9 +33,9 @@ app.patch("/api/workers/:id", routes.workers.update)
 
 // requests
 app.post("/api/requests", routes.requests.create)
-app.delete("/api/requests/:id", routes.requests.removeById)
-app.get("/api/requests", routes.requests.getAll)
-app.get("/api/requests/:id", routes.requests.getById)
+app.delete("/api/requests/:id", checkAuth, routes.requests.removeById)
+app.get("/api/requests", checkAuth, routes.requests.getAll)
+app.get("/api/requests/:id",checkAuth, routes.requests.getById)
 
 //emailBans
 app.get("/api/email_bans",  routes.email_bans.getAll)

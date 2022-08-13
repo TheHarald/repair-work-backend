@@ -1,5 +1,57 @@
+import { Request, Response } from 'express';
 const {models} = require("../../sequelize")
 import {checkId} from "../idChecker"
+import { generateJwtToken } from '../tokenGenerator';
+const bcrypt = require('bcrypt')
+
+
+
+async function registerWorker(req:Request,res:Response) {
+
+    const {password, login, worker_FIO} = req.body;
+    const worker = await models.worker.findOne({where:{
+        login:login
+    }})
+
+    if(worker){
+        return res.status(400).send(`Работник с логином: ${login} уже существует`)
+    }
+
+    const hashPassword = bcrypt.hashSync(password,7)
+    const newWorker = await models.worker.create({
+        worker_FIO,
+        login,
+        password:hashPassword
+    })
+    res.status(200).send(newWorker)
+
+}
+
+
+async function loginWorker(req:Request,res:Response) {
+    const {password, login} = req.body;
+    const worker = await models.worker.findOne({where:{
+        login:login
+    }})
+
+    if(worker){
+       const isMatchedPassword = bcrypt.compareSync(password,worker.password)
+       if(!isMatchedPassword){
+            return res.status(400).send(`Введён неправильный пароль`)
+       }
+
+        const token = generateJwtToken({...worker.dataValues})
+        return res.status(400).send(token)
+
+    }else{
+        return res.status(400).send(`Работник с логином: ${login} не найден`)
+    }
+
+}
+
+
+
+
 
 
 async function create(req, res) {
@@ -66,5 +118,7 @@ module.exports = {
     create,
     getById,
     removeById,
-    update
+    update,
+    registerWorker,
+    loginWorker
 }
