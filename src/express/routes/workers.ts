@@ -16,7 +16,7 @@ async function register(req:Request,res:Response) {
     }})
 
     if(worker){
-        return res.status(400).send(`Работник с логином: ${login} уже существует`)
+        return res.status(400).send({message:`Работник с логином: ${login} уже существует`})
     }
 
     const hashPassword = bcrypt.hashSync(password,7)
@@ -25,7 +25,9 @@ async function register(req:Request,res:Response) {
         login,
         password:hashPassword
     })
-    res.status(200).send(newWorker)
+
+    delete newWorker.dataValues.password
+    res.status(200).send(newWorker.dataValues)
 
 }
 
