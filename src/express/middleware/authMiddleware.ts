@@ -9,7 +9,7 @@ export function checkAuth(req,res:Response,next:NextFunction){
     try{
         const token = req.headers.authorization.split(' ')[1]
         if(!token){
-            res.status(403).send("Пользователь не авторизован")
+            res.status(403).send({message:"Пользователь не авторизован"})
         }
         const decodedData = jwt.verify(token,jwtConfig.secret)
         // console.log(decodedData);
@@ -17,7 +17,7 @@ export function checkAuth(req,res:Response,next:NextFunction){
         next()
     }catch(e){
         console.log(e);
-        res.status(403).send("Пользователь не авторизован")
+        res.status(403).send({message:"Пользователь не авторизован"})
     }   
 
     

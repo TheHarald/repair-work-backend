@@ -7,7 +7,7 @@ import {checkId} from "../idChecker"
 
 async function create(req:Request, res:Response) {
     if(req.body.id){
-        res.status(400).send(`Bad request: ID should not be provided, since it is determined automatically by the database.`)
+        res.status(400).send(`Bad request: ID не жолжно быть в теле запроса`)
     }else{
 
         if(await checkEmail(req,models.email_ban) ){
@@ -17,9 +17,9 @@ async function create(req:Request, res:Response) {
                 {requestId:request.dataValues.id}, 
                 {where:{email:request.dataValues.email}})
                 
-            res.status(400).send(request)
+            res.status(200).send(request)
         }else{
-            res.status(405).send("Email находится в бане")  
+            res.status(405).send({message:`Email: ${req.body.email} находится в бане`})  
         }
         
     }
