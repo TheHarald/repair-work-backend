@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken')
 
 
 
+
+
 async function register(req:Request,res:Response) {
 
     const {password, login, worker_FIO} = req.body;
@@ -117,14 +119,13 @@ async function removeById(req, res) {
 
 async function update(req, res) {
 	const id = checkId(req);
-    console.log(id)
 	if (id) {
-		const workers = await models.worker.update(req.body, {
+		const worker = await models.worker.update(req.body, {
 			where: {
 				id: id
 			}
 		});
-		res.status(200).json(workers);
+		res.status(200).json(worker);
 	} else {
 		res.status(400).send(`Bad request: param ID (${id}) does not vlid.`);
 	}

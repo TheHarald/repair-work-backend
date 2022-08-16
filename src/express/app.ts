@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import { checkAuth } from './middleware/authMiddleware';
 const bodyParser = require('body-parser');
+const { body, validationResult } = require('express-validator');
 const cors = require('cors');
 
 const routes = {
