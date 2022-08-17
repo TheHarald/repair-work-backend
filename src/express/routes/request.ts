@@ -56,11 +56,29 @@ async function removeById(req, res) {
     res.status(200).json(deletedRequest)
 };
 
+async function update(req:Request, res:Response) {
+    const id = checkId(req);
+    if(id){
+        await models.request.update(req.body,{
+            where: {
+				id: id
+			}
+        });
+
+        const request = await models.request.findByPk(id)
+        res.status(200).json(request);
+    }else{
+        res.status(400).send(`Bad request: param ID (${id}) does not valid.`);
+    }
+    
+}
+
 
 module.exports = {
     create,
     getAll,
     getById,
-    removeById
+    removeById,
+    update
 }
 

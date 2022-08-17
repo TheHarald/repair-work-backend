@@ -127,7 +127,7 @@ async function update(req, res) {
 		});
 		res.status(200).json(worker);
 	} else {
-		res.status(400).send(`Bad request: param ID (${id}) does not vlid.`);
+		res.status(400).send(`Bad request: param ID (${id}) does not valid.`);
 	}
 };
 

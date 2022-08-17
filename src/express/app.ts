@@ -38,6 +38,7 @@ app.post("/api/requests", routes.requests.create)
 app.delete("/api/requests/:id", checkAuth, routes.requests.removeById)
 app.get("/api/requests", checkAuth, routes.requests.getAll)
 app.get("/api/requests/:id",checkAuth, routes.requests.getById)
+app.patch("/api/requests/:id",checkAuth, routes.requests.update)
 
 //emailBans
 app.get("/api/email_bans",  routes.email_bans.getAll)
