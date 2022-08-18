@@ -12,7 +12,7 @@ async function create(req:Request, res:Response) {
 
         if(await checkEmail(req,models.email_ban) ){
 
-            const request = await models.request.create(req.body)
+            const request = await models.request.create({...req.body, status:'to_do'})
             const emailBan  = await models.email_ban.update(
                 {requestId:request.dataValues.id}, 
                 {where:{email:request.dataValues.email}})
