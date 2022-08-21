@@ -1,5 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import { checkAuth } from './middleware/authMiddleware';
+import { checkValidation } from './middleware/validationMiddleware';
+import { validatedFields } from './middleware/validationSchema';
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
 const cors = require('cors');
@@ -34,7 +36,7 @@ app.get("/api/workers/:id", checkAuth, routes.workers.getById)
 app.patch("/api/workers/:id", checkAuth, routes.workers.update)
 
 // requests
-app.post("/api/requests", routes.requests.create)
+app.post("/api/requests", validatedFields ,checkValidation, routes.requests.create)
 app.delete("/api/requests/:id", checkAuth, routes.requests.removeById)
 app.get("/api/requests", checkAuth, routes.requests.getAll)
 app.get("/api/requests/:id",checkAuth, routes.requests.getById)
