@@ -26,12 +26,12 @@ app.post("/api/workers/login",  routes.workers.login)
 
 
 //workers
-app.get("/api/workers",  routes.workers.getAll)
+app.get("/api/workers", checkAuth,  routes.workers.getAll)
 app.get("/api/worker/info", checkAuth,  routes.workers.getByToken)
 app.post("/api/workers", routes.workers.create)
-app.delete("/api/workers/:id", routes.workers.removeById)
-app.get("/api/workers/:id", routes.workers.getById)
-app.patch("/api/workers/:id", routes.workers.update)
+app.delete("/api/workers/:id", checkAuth, routes.workers.removeById)
+app.get("/api/workers/:id", checkAuth, routes.workers.getById)
+app.patch("/api/workers/:id", checkAuth, routes.workers.update)
 
 // requests
 app.post("/api/requests", routes.requests.create)
