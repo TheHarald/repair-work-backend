@@ -2,3 +2,4 @@ dist
 node_modules
 /src/sequelize/db.config.ts
 /src/express/jwt.config.ts
+/.env

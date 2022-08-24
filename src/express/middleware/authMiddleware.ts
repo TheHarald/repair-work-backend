@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { jwtConfig } from "../jwt.config";
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 export function checkAuth(req,res:Response,next:NextFunction){
     if(req.method === 'OPTIONS'){
@@ -11,7 +11,7 @@ export function checkAuth(req,res:Response,next:NextFunction){
         if(!token){
             res.status(403).send({message:"Пользователь не авторизован"})
         }
-        const decodedData = jwt.verify(token,jwtConfig.secret)
+        const decodedData = jwt.verify(token,process.env.JWY_SECRET)
         next()
     }catch(e){
         console.log(e);

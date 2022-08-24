@@ -3,8 +3,8 @@ const {models} = require("../../sequelize")
 import {checkId} from "../idChecker"
 import { generateJwtToken } from '../tokenGenerator';
 const bcrypt = require('bcrypt')
-import { jwtConfig } from "../jwt.config";
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 
 
@@ -58,7 +58,7 @@ async function login(req:Request,res:Response) {
 
 async function getByToken(req,res) {
     const token = req.headers.authorization.split(' ')[1]
-    const decodedData = jwt.verify(token,jwtConfig.secret)
+    const decodedData = jwt.verify(token,process.env.JWY_SECRET)
     console.log(decodedData);
 
     res.status(201).send({

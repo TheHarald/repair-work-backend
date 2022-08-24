@@ -12,7 +12,6 @@ const routes = {
     email_bans:require("./routes/emailBans")
 }
 
-
 const app:Express = express()
 
 app.use(bodyParser.json());

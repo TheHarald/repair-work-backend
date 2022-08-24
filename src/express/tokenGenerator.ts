@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken')
-import {jwtConfig} from './jwt.config'
+require('dotenv').config()
 
 export function generateJwtToken({...args}){
     const payload = {
         ...args
     }
 
-    return jwt.sign(payload,jwtConfig.secret, {expiresIn:'24h'})
+    return jwt.sign(payload,process.env.JWY_SECRET, {expiresIn:'24h'})
 }

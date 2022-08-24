@@ -1,12 +1,13 @@
 const { Sequelize } = require('sequelize');
-import { DatabaseConfig } from '../sequelize/db.config';
 import { makeRealtionships } from './relationships/relationships';
+require('dotenv').config()
+
 
 
 const sequelize = new Sequelize(
-    DatabaseConfig.database,
-    DatabaseConfig.username, 
-    DatabaseConfig.password,{ 
+    process.env.DATABASE,
+    process.env.DB_USERNAME, 
+    process.env.DB_PASSWORD,{ 
         dialect:'mysql',
         host:'localhost'
     })

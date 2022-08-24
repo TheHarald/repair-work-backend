@@ -7,3 +7,5 @@ export const validatedFields = [
     body('room').isLength({min:1, max:7}),
     body(['start_time_to_arrive','end_time_to_arrive']).matches('^[0-9]{1,2}:[0-9]{2}$')
 ]
+
+
