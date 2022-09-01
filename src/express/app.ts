@@ -44,7 +44,5 @@ app.patch("/api/requests/:id",checkAuth, routes.requests.update)
 
 //emailBans
 app.use("/api/email_bans",emailBanRouter)
-// app.get("/api/email_bans",  routes.email_bans.getAll)
-// app.get("/api/email_bans/:email",  routes.email_bans.getByEmail)
 
 module.exports = app

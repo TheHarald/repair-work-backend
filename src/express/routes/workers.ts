@@ -58,7 +58,7 @@ async function login(req:Request,res:Response) {
 
 async function getByToken(req,res) {
     const token = req.headers.authorization.split(' ')[1]
-    const decodedData = jwt.verify(token,process.env.JWY_SECRET)
+    const decodedData = jwt.verify(token,process.env.JWT_SECRET)
     console.log(decodedData);
 
     res.status(201).send({

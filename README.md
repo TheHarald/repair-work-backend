@@ -1,33 +1,34 @@
 ## Backend приложение для системы ремонтных заявок.
 
-#### Для запуска используйте
+### Установка
 
 ```
 npm install
 ```
 
+##### .env
+
+Создать и заполнить .env
+
+```
+JWT_SECRET=
+DB_USERNAME=
+DB_PASSWORD=
+DATABASE=
+```
+
+### Запуск
+
 ```
 npm run dev
+Открыть http://localhost:3001/api/
 ```
 
-##### Создайте файл
+### Технологии
 
-```
-src\sequelize\db.config.ts
-```
+- Express
+- Sequelize
+- MySQL
+- JWT
 
-##### Пример файла
-
-```ts
-export interface IDatabaseConfig {
-  username: string;
-  password: string;
-  database: string;
-}
-
-export const DatabaseConfig: IDatabaseConfig = {
-  username: "username",
-  password: "username",
-  database: "database",
-};
-```
+### Технологии

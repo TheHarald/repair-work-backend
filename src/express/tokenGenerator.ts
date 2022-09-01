@@ -6,5 +6,5 @@ export function generateJwtToken({...args}){
         ...args
     }
 
-    return jwt.sign(payload,process.env.JWY_SECRET, {expiresIn:'24h'})
+    return jwt.sign(payload,process.env.JWT_SECRET, {expiresIn:'24h'})
 }

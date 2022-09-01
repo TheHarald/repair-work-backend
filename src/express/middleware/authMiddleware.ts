@@ -11,7 +11,7 @@ export function checkAuth(req,res:Response,next:NextFunction){
         if(!token){
             res.status(403).send({message:"Пользователь не авторизован"})
         }
-        const decodedData = jwt.verify(token,process.env.JWY_SECRET)
+        const decodedData = jwt.verify(token,process.env.JWT_SECRET)
         next()
     }catch(e){
         console.log(e);
