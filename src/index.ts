@@ -3,7 +3,6 @@ const sequelize = require("./sequelize");
 const PORT:number = 3001;
 
 
-
 async function assertDatabaseConnectionOk() {
 	console.log(`Checking database connection...`);
 	try {
@@ -22,7 +21,7 @@ async function init() {
 	console.log(`Starting Sequelize + Express example on port ${PORT}...`);
 
 	application.listen(PORT, () => {
-		console.log(`Express server started on port ${PORT}. Try some routes, such as '/api/workers'.`);
+		console.log(`Express server started on port ${PORT}. Try some routes, such as http://localhost:${PORT}/api/workers.`);
 	});
 }
 

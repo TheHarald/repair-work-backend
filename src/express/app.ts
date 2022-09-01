@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import { checkAuth } from './middleware/authMiddleware';
 import { checkValidation } from './middleware/validationMiddleware';
 import { validatedFields } from './middleware/validationSchema';
+import { emailBanRouter } from './router/emailBanRouter';
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
 const cors = require('cors');
@@ -42,7 +43,8 @@ app.get("/api/requests/:id",checkAuth, routes.requests.getById)
 app.patch("/api/requests/:id",checkAuth, routes.requests.update)
 
 //emailBans
-app.get("/api/email_bans",  routes.email_bans.getAll)
-app.get("/api/email_bans/:email",  routes.email_bans.getByEmail)
+app.use("/api/email_bans",emailBanRouter)
+// app.get("/api/email_bans",  routes.email_bans.getAll)
+// app.get("/api/email_bans/:email",  routes.email_bans.getByEmail)
 
 module.exports = app
